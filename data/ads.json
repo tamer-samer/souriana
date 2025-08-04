@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "campaignId": 1,
+    "platform": "facebook",
+    "publishDate": "2025-07-10T04:00:00.000Z",
+    "createdAt": "2025-07-30T12:25:13.800Z"
+  },
+  {
+    "id": 2,
+    "campaignId": 1,
+    "platform": "telegram",
+    "publishDate": "2025-07-30T04:00:00.000Z",
+    "createdAt": "2025-07-31T20:38:33.658Z"
+  },
+  {
+    "id": 3,
+    "campaignId": 1,
+    "platform": "facebook",
+    "publishDate": "2025-07-16T04:00:00.000Z",
+    "createdAt": "2025-07-31T20:38:59.659Z"
+  },
+  {
+    "id": 5,
+    "campaignId": 2,
+    "platform": "facebook",
+    "publishDate": "2025-07-30T04:00:00.000Z",
+    "createdAt": "2025-08-02T19:18:38.296Z"
+  }
+]

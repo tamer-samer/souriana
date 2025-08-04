@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "name": "نهاية العام",
+    "clientId": 1,
+    "status": "active",
+    "startDate": null,
+    "endDate": null,
+    "isLimited": false,
+    "facebookLimit": 0,
+    "instagramLimit": 0,
+    "telegramLimit": 0,
+    "createdAt": "2025-07-30T12:25:03.178Z"
+  },
+  {
+    "id": 2,
+    "name": "بداية",
+    "clientId": 2,
+    "status": "active",
+    "startDate": null,
+    "endDate": null,
+    "isLimited": true,
+    "facebookLimit": 45,
+    "instagramLimit": 0,
+    "telegramLimit": 0,
+    "createdAt": "2025-08-02T19:18:04.302Z"
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "clerkId": "user_30aYTbUy1RNVzWPJIWeVpkg4Fl4",
+    "name": "حسين",
+    "email": "hussein@syr-edu.com",
+    "imageUrl": null,
+    "role": "admin",
+    "createdAt": "2025-07-30T10:06:50.498Z"
+  },
+  {
+    "id": 2,
+    "clerkId": "user_30aYv7ihHU86BdwTPnyc9Agehq5",
+    "name": "صالح",
+    "email": "saleh@syr-edu.com",
+    "imageUrl": null,
+    "role": "partner",
+    "createdAt": "2025-07-30T10:06:50.498Z"
+  },
+  {
+    "id": 3,
+    "clerkId": "user_30aYyDPksFWvqtZmG3n3VLABWjA",
+    "name": "ضياء",
+    "email": "deaa@syr-edu.com",
+    "imageUrl": null,
+    "role": "partner",
+    "createdAt": "2025-07-30T10:06:50.498Z"
+  }
+]
