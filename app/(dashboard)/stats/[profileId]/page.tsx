@@ -5,10 +5,11 @@ import { StatsTable } from "@/components/dashboard/stats";
 import { Card } from "@/components/ui/card";
 
 type Params = {
-  params: { profileId: string };
+  params: Promise<{ profileId: string }>;
 };
 export default async function ProfilePage({ params }: Params) {
-  const pageId = Number(params.profileId);
+  const profileId = (await params).profileId;
+  const pageId = Number(profileId);
   if (isNaN(pageId)) {
     return notFound();
   }

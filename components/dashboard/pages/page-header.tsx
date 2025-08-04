@@ -33,7 +33,8 @@ export function PageHeader({ imageUrl, name, pageId, activePlatforms }: Props) {
             <Image
               src={imageUrl || "/placeholder.svg"}
               alt={name}
-              fill
+              width={40}
+              height={40}
               className="w-full h-full object-cover"
             />
           </div>

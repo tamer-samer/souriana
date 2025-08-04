@@ -49,7 +49,8 @@ export function ClientCard({ client }: Props) {
               <Image
                 src={client.imageUrl || "/placeholder.svg"}
                 alt={client.name}
-                fill
+                width={20}
+                height={20}
                 className="w-full h-full object-cover"
               />
             </div>

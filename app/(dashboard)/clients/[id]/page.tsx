@@ -4,13 +4,12 @@ import { CampaignCard, ClientHeader } from "@/components/dashboard/clients";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface Props {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function ClientDetailsPage({ params }: Props) {
-  const clientId = Number(params.id);
+  const id = (await params).id;
+  const clientId = Number(id);
   if (isNaN(clientId)) {
     return notFound();
   }
