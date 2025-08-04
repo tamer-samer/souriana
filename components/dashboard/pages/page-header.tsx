@@ -39,7 +39,9 @@ export function PageHeader({ imageUrl, name, pageId, activePlatforms }: Props) {
             />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">{name}</h1>
+            <h1 className="text-base md:text-2xl font-bold text-white">
+              {name}
+            </h1>
           </div>
         </div>
       </div>
