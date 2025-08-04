@@ -13,7 +13,9 @@ export function ClientsHeader() {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <h1 className="text-3xl font-bold text-white">الجهات الإعلانية</h1>
+        <h1 className="text-xl md:text-2xl font-bold text-white">
+          الجهات الإعلانية
+        </h1>
       </div>
 
       <Modal

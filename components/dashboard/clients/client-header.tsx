@@ -19,7 +19,7 @@ export function ClientHeader({ imageUrl, name, clientId }: Props) {
 
   return (
     <div className="flex items-center justify-between">
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-2">
         <Link href="/clients">
           <Button variant="ghost" size="icon">
             <ArrowRight className="h-4 w-4" />
@@ -31,13 +31,15 @@ export function ClientHeader({ imageUrl, name, clientId }: Props) {
             <Image
               src={imageUrl || "/placeholder.svg"}
               alt={name}
-              width={40}
-              height={40}
+              width={20}
+              height={20}
               className="w-full h-full object-cover"
             />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">{name}</h1>
+            <h1 className="text-base md:text-2xl font-bold text-white">
+              {name}
+            </h1>
           </div>
         </div>
       </div>
