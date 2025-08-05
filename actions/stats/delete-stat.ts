@@ -5,8 +5,9 @@ import { eq } from "drizzle-orm";
 
 import db from "@/db/drizzle";
 import { followerRecords } from "@/db/schema";
+import { DeleteStatValues } from "@/types";
 
-export async function deleteStatAction(id: number, pageId: number) {
+export async function deleteStatAction({ id, pageId }: DeleteStatValues) {
   try {
     await db.delete(followerRecords).where(eq(followerRecords.id, id));
 

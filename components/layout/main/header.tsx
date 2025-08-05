@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { SkeletonBtton } from "@/components/ui/skeleton-button";
+import { Logo } from "@/components/common";
 
 const links = [
   {
@@ -35,10 +36,7 @@ export function MainHeader() {
     <header className="sticky top-0 z-50 bg-secondary/95 backdrop-blur-sm border-b">
       <div className="flex items-center justify-between container mx-auto h-full w-full p-4">
         {/* Logo */}
-        <div className="flex items-center">
-          <h1 className="text-xl font-bold text-primary">سوريانا التعليمية</h1>
-        </div>
-
+        <Logo />
         {/* Nav */}
         <nav className="hidden md:flex">
           <ul className="flex items-center gap-x-4">

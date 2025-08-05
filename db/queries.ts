@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import db from "./drizzle";
-import { clients, trackedProfiles, transactions } from "./schema";
+import { campaigns, clients, trackedProfiles, transactions } from "./schema";
 import { eq, isNull } from "drizzle-orm";
 import { FOLLOWERS } from "@/constants";
 import { auth, currentUser } from "@clerk/nextjs/server";
@@ -43,7 +43,7 @@ export async function getClientsWithStats() {
         },
       },
     },
-    orderBy: (clients, { desc }) => [desc(clients.createdAt)],
+    orderBy: (clients, { asc }) => [asc(clients.createdAt)],
     where: (await isAdmin()) ? undefined : eq(clients.display, true),
   });
 
@@ -56,10 +56,15 @@ export async function getClientsWithStats() {
 
     const totalAds = activeCampaign?.ads.length || 0;
 
-    let status: "Active" | "Ended" = "Ended";
-    if (totalAds > 0) {
-      status = "Active";
-    }
+    const totalLimitedAds = activeCampaign?.isLimited
+      ? (activeCampaign.facebookLimit ?? 0) +
+        (activeCampaign.instagramLimit ?? 0) +
+        (activeCampaign.telegramLimit ?? 0)
+      : undefined;
+
+    let status: "active" | "ended" = activeCampaign
+      ? activeCampaign?.status
+      : "ended";
 
     return {
       id: client.id,
@@ -68,6 +73,7 @@ export async function getClientsWithStats() {
       display: client.display,
       campaignCounts,
       totalAds,
+      totalLimitedAds,
       status,
       createdAt: client.createdAt,
     };

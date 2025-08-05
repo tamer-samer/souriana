@@ -8,7 +8,7 @@ export function DashboardHeader() {
     <header className="sticky top-0 z-50 min-h-[60px] bg-secondary/95 backdrop-blur-sm border-b w-full">
       <div className="flex items-center justify-between mx-auto h-full w-full py-4 px-5">
         {/* Mobile Button */}
-        <div>
+        <div className="lg:hidden">
           <SidebarTrigger />
         </div>
         {/* User Profile */}

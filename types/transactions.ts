@@ -96,3 +96,7 @@ export interface TransactionsSummary {
   totalExpense: string;
   netProfit: string;
 }
+
+export interface DeleteTransactionValues {
+  id: number;
+}

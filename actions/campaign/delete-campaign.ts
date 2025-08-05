@@ -5,8 +5,12 @@ import { eq } from "drizzle-orm";
 
 import db from "@/db/drizzle";
 import { campaigns } from "@/db/schema";
+import { DeleteCampaignValues } from "@/types";
 
-export async function deleteCampaignAction(id: number, clientId: number) {
+export async function deleteCampaignAction({
+  id,
+  clientId,
+}: DeleteCampaignValues) {
   try {
     await db.delete(campaigns).where(eq(campaigns.id, id));
 

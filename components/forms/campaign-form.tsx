@@ -71,6 +71,9 @@ export function CampaignForm({
       facebookLimit: undefined,
       instagramLimit: undefined,
       telegramLimit: undefined,
+      facebookAds: undefined,
+      instagramAds: undefined,
+      telegramAds: undefined,
     },
   });
 

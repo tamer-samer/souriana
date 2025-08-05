@@ -74,3 +74,12 @@ export interface ActivePlatforms {
   hasInstagram: boolean;
   hasTelegram: boolean;
 }
+
+export interface DeleteStatValues {
+  id: number;
+  pageId: number;
+}
+
+export interface DeletePageValues {
+  id: number;
+}

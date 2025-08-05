@@ -28,9 +28,9 @@ export async function updateAdAction(id: number, values: AdValues) {
 
     revalidatePath("/clients");
     revalidatePath(`/clients/${values.clientId}`);
-    return { success: true, message: "تم تحديث الاعلان بنجاح." };
+    return { success: true, message: "تم تحديث الإعلان بنجاح." };
   } catch (error) {
     console.error(error);
-    return { success: false, message: "فشل تحديث الاعلان." };
+    return { success: false, message: "فشل تحديث الإعلان." };
   }
 }

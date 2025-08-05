@@ -5,8 +5,9 @@ import { eq } from "drizzle-orm";
 
 import db from "@/db/drizzle";
 import { transactions } from "@/db/schema";
+import { DeleteTransactionValues } from "@/types";
 
-export async function deleteTransactionAction(id: number) {
+export async function deleteTransactionAction({ id }: DeleteTransactionValues) {
   try {
     await db.delete(transactions).where(eq(transactions.id, id));
 

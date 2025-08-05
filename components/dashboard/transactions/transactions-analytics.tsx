@@ -1,6 +1,7 @@
 import { DollarSign, TrendingDown, TrendingUp, Users } from "lucide-react";
 import { TransactionsCard } from "./transactions-card";
 import { TransactionAnalytics } from "@/types";
+import { CardsContainer } from "@/components/common";
 
 type Props = TransactionAnalytics;
 export function TransactionsAnalytics({
@@ -11,8 +12,8 @@ export function TransactionsAnalytics({
   userTransactionsSummary,
 }: Props) {
   return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+    <div className="mt-10">
+      <CardsContainer>
         <TransactionsCard
           title="صافي الدخل"
           value={netTransaction.amount}
@@ -34,7 +35,8 @@ export function TransactionsAnalytics({
           icon={TrendingDown}
           trendValue={expenseTransactions.trend}
         />
-      </div>
+      </CardsContainer>
+
       <div className="max-w-[550px] mt-6 mx-auto">
         <TransactionsCard
           title="حصة الشخص"
@@ -43,6 +45,6 @@ export function TransactionsAnalytics({
           userTransactionsSummary={userTransactionsSummary}
         />
       </div>
-    </>
+    </div>
   );
 }

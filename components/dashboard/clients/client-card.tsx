@@ -7,18 +7,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Modal } from "@/components/ui/modal";
 import Spinner from "@/components/ui/Spinner";
-import { ClientSelect } from "@/types";
+import { handleDelete } from "@/lib/utils";
+import { ClientSelect, DeleteClientValues } from "@/types";
 import { BarChart3, Building2, Edit, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useTransition } from "react";
-import { toast } from "sonner";
 
 type Props = {
   client: ClientSelect & {
-    status: "Active" | "Ended";
+    status: "active" | "ended";
     campaignCounts: number;
     totalAds: number;
+    totalLimitedAds?: number;
   };
 };
 
@@ -27,15 +28,6 @@ export function ClientCard({ client }: Props) {
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
-
-  const handleDelete = (id: number) => {
-    startTransition(async () => {
-      await deleteClientAction(id)
-        .then(() => toast("تم حذف الجهة بنجاح"))
-        .catch(() => toast.error("حدث خطأ أثناء الحذف"))
-        .finally(() => setOpenDeleteModal(false));
-    });
-  };
 
   return (
     <Card
@@ -62,12 +54,12 @@ export function ClientCard({ client }: Props) {
                 <Badge
                   variant="secondary"
                   className={
-                    client.status === "Active"
+                    client.status === "active"
                       ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
                       : "bg-slate-500/20 text-slate-400 border-slate-500/30"
                   }
                 >
-                  {client.status === "Active" ? "نشطة" : "منتهية"}
+                  {client.status === "active" ? "نشطة" : "منتهية"}
                 </Badge>
               )}
             </div>
@@ -126,7 +118,14 @@ export function ClientCard({ client }: Props) {
                   إلغاء
                 </Button>
                 <Button
-                  onClick={() => handleDelete(client.id)}
+                  onClick={() =>
+                    handleDelete<DeleteClientValues>({
+                      startTransition,
+                      setOpenDeleteModal,
+                      deleteAction: deleteClientAction,
+                      data: { id: client.id },
+                    })
+                  }
                   variant="destructive"
                   disabled={isPending}
                 >
@@ -153,7 +152,10 @@ export function ClientCard({ client }: Props) {
               <Building2 className="h-4 w-4" />
               <span className="text-sm">الإعلانات المنشورة</span>
             </div>
-            <span className="text-white font-medium">{client.totalAds}</span>
+            <span className="text-white font-medium">
+              {client.totalAds}
+              {client.totalLimitedAds && `/${client.totalLimitedAds}`}
+            </span>
           </div>
         </div>
 

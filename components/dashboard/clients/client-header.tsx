@@ -1,13 +1,15 @@
 "use client";
 
-import { createCampaignAction } from "@/actions/campaign/create-campaign";
-import { CampaignForm } from "@/components/forms/campaign-form";
-import { Button } from "@/components/ui/button";
-import { Modal } from "@/components/ui/modal";
-import { ArrowRight, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
+
+import { createCampaignAction } from "@/actions/campaign/create-campaign";
+import { AddButton } from "@/components/common";
+import { CampaignForm } from "@/components/forms/campaign-form";
+import { Button } from "@/components/ui/button";
+import { Modal } from "@/components/ui/modal";
 
 type Props = {
   imageUrl: string | null;
@@ -27,7 +29,7 @@ export function ClientHeader({ imageUrl, name, clientId }: Props) {
         </Link>
 
         <div className="flex items-center space-x-3">
-          <div className="w-16 h-16 bg-slate-800 rounded-lg flex items-center justify-center overflow-hidden">
+          <div className="w-10 h-10 md:w-16 md:h-16 bg-slate-800 rounded-lg flex items-center justify-center overflow-hidden">
             <Image
               src={imageUrl || "/placeholder.svg"}
               alt={name}
@@ -45,12 +47,7 @@ export function ClientHeader({ imageUrl, name, clientId }: Props) {
       </div>
 
       <Modal
-        trigger={
-          <Button className="gap-2">
-            <Plus className="h-4 w-4" />
-            إضافة حملة
-          </Button>
-        }
+        trigger={<AddButton title="حملة" />}
         open={openCreateModal}
         setOpen={setOpenCreateModal}
       >

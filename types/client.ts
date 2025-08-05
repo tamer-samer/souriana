@@ -36,3 +36,7 @@ export interface ClientStats {
   activeCount: number;
   totalAds: number;
 }
+
+export interface DeleteClientValues {
+  id: number;
+}

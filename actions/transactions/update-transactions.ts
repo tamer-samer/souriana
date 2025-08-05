@@ -43,7 +43,7 @@ export async function updateTransactionAction(
       .where(eq(transactions.id, id));
 
     revalidatePath("/transactions");
-    return { success: true, message: "تمت تحديث المعاملة بنجاح." };
+    return { success: true, message: "تم تحديث المعاملة بنجاح." };
   } catch (error) {
     console.error(error);
     return {

@@ -17,7 +17,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Modal } from "@/components/ui/modal";
 import Spinner from "@/components/ui/Spinner";
 
-import { TrackedProfileSelect } from "@/types";
+import { DeletePageValues, TrackedProfileSelect } from "@/types";
+import { handleDelete } from "@/lib/utils";
 
 type Props = {
   page: TrackedProfileSelect;
@@ -36,14 +37,6 @@ export function PageCard({ page }: Props) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
-  const handleDelete = (id: number) => {
-    startTransition(async () => {
-      await deletePageAction(id)
-        .then(() => toast("تم حذف الصفحة بنجاح"))
-        .catch(() => toast.error("حدث خطأ أثناء الحذف"))
-        .finally(() => setOpenDeleteModal(false));
-    });
-  };
   return (
     <Card
       key={page.id}
@@ -119,7 +112,14 @@ export function PageCard({ page }: Props) {
                 إلغاء
               </Button>
               <Button
-                onClick={() => handleDelete(page.id)}
+                onClick={() =>
+                  handleDelete<DeletePageValues>({
+                    startTransition,
+                    setOpenDeleteModal,
+                    deleteAction: deletePageAction,
+                    data: { id: page.id },
+                  })
+                }
                 variant="destructive"
                 disabled={isPending}
               >

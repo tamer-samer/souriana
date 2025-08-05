@@ -21,9 +21,9 @@ export async function updateClientAction(id: number, values: TClientForm) {
 
     revalidatePath("/clients");
     revalidatePath(`/clients/${id}`);
-    return { success: true, message: "تم تحديث العميل بنجاح." };
+    return { success: true, message: "تم تحديث الجهة الإعلانية بنجاح." };
   } catch (error) {
     console.error(error);
-    return { success: false, message: "فشل تحديث العميل." };
+    return { success: false, message: "فشل تحديث الجهة الإعلانية." };
   }
 }

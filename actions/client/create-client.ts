@@ -16,12 +16,12 @@ export async function createClientAction(values: TClientForm) {
     });
 
     revalidatePath("/clients");
-    return { success: true, message: "تمت إضافة العميل بنجاح." };
+    return { success: true, message: "تمت إضافة الجهة الإعلانية بنجاح." };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message: "فشل في إضافة العميل.",
+      message: "فشل في إضافة الجهة الإعلانية.",
     };
   }
 }

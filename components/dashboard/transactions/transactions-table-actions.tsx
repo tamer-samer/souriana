@@ -13,9 +13,10 @@ import { Modal } from "@/components/ui/modal";
 import Spinner from "@/components/ui/Spinner";
 import { getTransactions } from "@/db/queries";
 import { clients, users } from "@/db/schema";
+import { handleDelete } from "@/lib/utils";
+import { DeleteTransactionValues } from "@/types";
 import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 import { useState, useTransition } from "react";
-import { toast } from "sonner";
 
 type GetTransactionsResult = Awaited<ReturnType<typeof getTransactions>>;
 
@@ -45,16 +46,6 @@ export function TransactionsActions({ transaction, users, clients }: Props) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
-  const handleDeleteTransaction = () => {
-    startTransition(async () => {
-      await deleteTransactionAction(transaction.id)
-        .then(() => {
-          toast("تم حذف المعاملة بنجاح");
-          setOpenDeleteModal(false);
-        })
-        .catch(() => toast.error("حدث خطأ أثناء الحذف"));
-    });
-  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -113,7 +104,7 @@ export function TransactionsActions({ transaction, users, clients }: Props) {
           }
         >
           <h3 className="text-xl md:text-2xl text-center py-5">
-            هل أنت متأكد من حذف هذه الحملة
+            هل أنت متأكد من حذف هذه المعاملة
           </h3>
           <div className="flex items-center justify-end gap-2">
             <Button
@@ -124,7 +115,14 @@ export function TransactionsActions({ transaction, users, clients }: Props) {
               إلغاء
             </Button>
             <Button
-              onClick={() => handleDeleteTransaction()}
+              onClick={() =>
+                handleDelete<DeleteTransactionValues>({
+                  startTransition,
+                  setOpenDeleteModal,
+                  deleteAction: deleteTransactionAction,
+                  data: { id: transaction.id },
+                })
+              }
               variant="destructive"
               disabled={isPending}
             >

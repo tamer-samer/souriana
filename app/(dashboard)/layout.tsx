@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
     <>
       <SidebarProvider>
         <AppSidebar />
-        <div className="w-full">
+        <div className="w-full ">
           <DashboardHeader />
           <main className="p-5 min-h-screen">{children}</main>
           <Footer />

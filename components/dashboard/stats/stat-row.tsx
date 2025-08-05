@@ -2,7 +2,6 @@
 import { useState, useTransition } from "react";
 import { format } from "date-fns";
 import { Edit, Trash2 } from "lucide-react";
-import { toast } from "sonner";
 import { deleteStatAction } from "@/actions/stats/delete-stat";
 import { updateStatsAction } from "@/actions/stats/update-stat";
 
@@ -13,7 +12,12 @@ import Spinner from "@/components/ui/Spinner";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { StatsForm } from "@/components/forms/stats-form";
 
-import { ActivePlatforms, FollowerRecordSelect } from "@/types";
+import {
+  ActivePlatforms,
+  DeleteStatValues,
+  FollowerRecordSelect,
+} from "@/types";
+import { handleDelete } from "@/lib/utils";
 
 type Props = {
   stat: FollowerRecordSelect;
@@ -32,14 +36,6 @@ export function StatRow({ stat, activePlatforms }: Props) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
-  const handleDeleteStat = () => {
-    startTransition(async () => {
-      await deleteStatAction(stat.id, stat.profileId)
-        .then(() => toast("تم حذف الحملة بنجاح"))
-        .catch(() => toast.error("حدث خطأ أثناء الحذف"))
-        .finally(() => setOpenDeleteModal(false));
-    });
-  };
   return (
     <TableRow key={stat.id} className="border-accent hover:bg-accent/30">
       <TableCell>
@@ -115,7 +111,14 @@ export function StatRow({ stat, activePlatforms }: Props) {
               إلغاء
             </Button>
             <Button
-              onClick={() => handleDeleteStat()}
+              onClick={() =>
+                handleDelete<DeleteStatValues>({
+                  startTransition,
+                  setOpenDeleteModal,
+                  deleteAction: deleteStatAction,
+                  data: { id: stat.id, pageId: stat.profileId },
+                })
+              }
               variant="destructive"
               disabled={isPending}
             >

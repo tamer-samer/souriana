@@ -5,22 +5,18 @@ import { eq } from "drizzle-orm";
 
 import db from "@/db/drizzle";
 import { ads } from "@/db/schema";
+import { DeleteAdValues } from "@/types";
 
-type AdValues = {
-  adId: number;
-  clientId: number;
-};
-
-export async function deleteAdAction(values: AdValues) {
+export async function deleteAdAction(values: DeleteAdValues) {
   try {
-    if (!values.adId || !values.clientId) {
+    if (!values.id || !values.clientId) {
       return {
         success: false,
         message: "يرجى إدخال جميع الحقول",
       };
     }
 
-    await db.delete(ads).where(eq(ads.id, values.adId));
+    await db.delete(ads).where(eq(ads.id, values.id));
 
     revalidatePath("/clients");
     revalidatePath(`/clients/${values.clientId}`);

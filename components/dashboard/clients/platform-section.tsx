@@ -28,6 +28,7 @@ type Props = {
   };
   color: string;
   isActive: boolean;
+  isLimited: boolean;
 };
 
 const icons = {
@@ -43,6 +44,7 @@ export const PlatformSection = ({
   data,
   color,
   isActive,
+  isLimited,
 }: Props) => {
   const [isPending, startTransition] = useTransition();
 
@@ -102,7 +104,7 @@ export const PlatformSection = ({
           </span>
         </div>
         <Badge variant="secondary" className="bg-slate-700 text-slate-300">
-          {data.ads.length} {data.limit ? `/ ${data.limit}` : ""}
+          {data.ads.length} {isLimited && data.limit ? `/ ${data.limit}` : ""}
         </Badge>
       </div>
 

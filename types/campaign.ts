@@ -72,3 +72,10 @@ export interface CampaignFilterOptions {
   sortBy?: "name" | "startDate" | "endDate" | "createdAt";
   sortOrder?: "asc" | "desc";
 }
+
+export interface DeleteAdValues {
+  id: number;
+  clientId: number;
+}
+
+export interface DeleteCampaignValues extends DeleteAdValues {}

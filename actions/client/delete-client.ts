@@ -5,18 +5,19 @@ import { eq } from "drizzle-orm";
 
 import db from "@/db/drizzle";
 import { clients } from "@/db/schema";
+import { DeleteClientValues } from "@/types";
 
-export async function deleteClientAction(id: number) {
+export async function deleteClientAction({ id }: DeleteClientValues) {
   try {
     await db.delete(clients).where(eq(clients.id, id));
 
     revalidatePath("/clients");
-    return { success: true, message: "تم حذف العميل بنجاح." };
+    return { success: true, message: "تم حذف الجهة الإعلانية بنجاح." };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message: "فشل حذف العميل.",
+      message: "فشل حذف الجهة الإعلانية.",
     };
   }
 }

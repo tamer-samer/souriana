@@ -1,6 +1,7 @@
 import { getClientsWithStats } from "@/db/queries";
 import { ClientCard, ClientsHeader } from "@/components/dashboard/clients";
 import { Card } from "@/components/ui/card";
+import { CardsContainer } from "@/components/common";
 
 export default async function ClientsPage() {
   const clients = await getClientsWithStats();
@@ -14,11 +15,11 @@ export default async function ClientsPage() {
       {clients.length === 0 ? (
         <Card className="text-center px-2">لا يوجد جهات إعلانية</Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <CardsContainer>
           {clients.map((client) => {
             return <ClientCard client={client} key={client.id} />;
           })}
-        </div>
+        </CardsContainer>
       )}
     </div>
   );

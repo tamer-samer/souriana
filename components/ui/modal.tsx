@@ -1,10 +1,13 @@
 "use client";
 
-import type React from "react";
-
-import { Dispatch, SetStateAction, useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Delete, Info, Pen, Plus } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 interface Props {
   children: React.ReactNode;
@@ -13,24 +16,14 @@ interface Props {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function Modal({
-  children,
-  trigger,
-
-  open = false,
-  setOpen,
-}: Props) {
+export function Modal({ children, trigger, open = false, setOpen }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogTrigger>{trigger}</DialogTrigger>
       <DialogContent className="bg-secondary border-accent text-white w-[90%] max-w-[550px] mx-auto max-h-[90vh] overflow-y-auto pt-10">
-        {/* <DialogHeader className="border-b border-accent p-4 pr-0">
-          <div className="flex items-center justify-center w-full pb-2">
-            <DialogTitle>
-              <IconComponent />
-            </DialogTitle>
-          </div>
-        </DialogHeader> */}
+        <DialogHeader>
+          <DialogTitle></DialogTitle>
+        </DialogHeader>
         {children}
       </DialogContent>
     </Dialog>

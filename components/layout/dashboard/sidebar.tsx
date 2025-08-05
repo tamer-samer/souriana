@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { BarChart3, Building2, TrendingUp } from "lucide-react";
+import { Logo } from "@/components/common";
 
 const menuItems = [
   {
@@ -39,13 +40,7 @@ export function AppSidebar() {
     <Sidebar side="right">
       <SidebarHeader className="py-5">
         {/* Logo */}
-        <div className="flex items-center">
-          <Link href={"/"} className="w-full">
-            <h1 className="text-xl font-bold text-primary text-center w-full">
-              سوريانا التعليمية
-            </h1>
-          </Link>
-        </div>
+        <Logo />
       </SidebarHeader>
 
       <SidebarContent className="px-3">

@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Modal } from "@/components/ui/modal";
 import Spinner from "@/components/ui/Spinner";
+import { handleDelete } from "@/lib/utils";
+import { DeleteAdValues } from "@/types";
 
 type Props = {
   ad: {
@@ -29,15 +31,6 @@ export function AdCard({ ad, clientId, index }: Props) {
   const [adDate, setAdDate] = useState<Date | undefined>(ad.publishDate);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
-
-  const handleDeleteAd = (id: number) => {
-    startTransition(async () => {
-      await deleteAdAction({ adId: id, clientId })
-        .then(() => toast("تم حذف الإعلان بنجاح"))
-        .catch(() => toast.error("حدث خطأ أثناء الحذف"))
-        .finally(() => setOpenDeleteModal(false));
-    });
-  };
 
   const handleUpdateAd = (id: number) => {
     if (adDate === undefined) {
@@ -125,7 +118,14 @@ export function AdCard({ ad, clientId, index }: Props) {
               إلغاء
             </Button>
             <Button
-              onClick={() => handleDeleteAd(ad.id)}
+              onClick={() =>
+                handleDelete<DeleteAdValues>({
+                  startTransition,
+                  setOpenDeleteModal,
+                  deleteAction: deleteAdAction,
+                  data: { id: ad.id, clientId },
+                })
+              }
               variant="destructive"
               disabled={isPending}
             >

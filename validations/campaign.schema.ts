@@ -26,6 +26,21 @@ const campaignSchema = z
       .min(0, "العدد يجب أن يكون 0 أو أكثر.")
       .nullable()
       .optional(),
+    facebookAds: z
+      .number()
+      .min(0, "العدد يجب أن يكون 0 أو أكثر.")
+      .nullable()
+      .optional(),
+    instagramAds: z
+      .number()
+      .min(0, "العدد يجب أن يكون 0 أو أكثر.")
+      .nullable()
+      .optional(),
+    telegramAds: z
+      .number()
+      .min(0, "العدد يجب أن يكون 0 أو أكثر.")
+      .nullable()
+      .optional(),
   })
   .refine(
     (data) => {
@@ -37,6 +52,54 @@ const campaignSchema = z
     {
       message: "تاريخ الانتهاء يجب أن يكون بعد تاريخ البدء.",
       path: ["endDate"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (
+        data.facebookAds &&
+        data.facebookLimit &&
+        data.facebookLimit < data.facebookAds
+      ) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "لا يمكن أن يكون العدد المحدد أقل من الإعلانات المنشورة",
+      path: ["facebookLimit"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (
+        data.instagramAds &&
+        data.instagramLimit &&
+        data.instagramLimit < data.instagramAds
+      ) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "لا يمكن أن يكون العدد المحدد أقل من الإعلانات المنشورة",
+      path: ["instagramLimit"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (
+        data.telegramAds &&
+        data.telegramLimit &&
+        data.telegramLimit < data.telegramAds
+      ) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "لا يمكن أن يكون العدد المحدد أقل من الإعلانات المنشورة",
+      path: ["telegramLimit"],
     }
   )
   .refine(

@@ -12,7 +12,8 @@ import Spinner from "@/components/ui/Spinner";
 import { Modal } from "@/components/ui/modal";
 import { CampaignForm } from "@/components/forms/campaign-form";
 import { updateCampaignAction } from "@/actions/campaign/update-campaign";
-import { CampaignWithPlatforms } from "@/types";
+import { CampaignWithPlatforms, DeleteCampaignValues } from "@/types";
+import { handleDelete } from "@/lib/utils";
 
 type Props = {
   campaign: CampaignWithPlatforms;
@@ -23,20 +24,42 @@ export function CampaignCard({ campaign }: Props) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
-  const handleDeleteCampaign = () => {
-    startTransition(async () => {
-      await deleteCampaignAction(campaign.id, campaign.clientId)
-        .then(() => toast("تم حذف الحملة بنجاح"))
-        .catch(() => toast.error("حدث خطأ أثناء الحذف"))
-        .finally(() => setOpenDeleteModal(false));
-    });
-  };
-
   const initCampaign = {
     ...campaign,
     facebookLimit: campaign.platforms.facebook.limit,
     instagramLimit: campaign.platforms.instagram.limit,
     telegramLimit: campaign.platforms.telegram.limit,
+    facebookAds: campaign.platforms.facebook.ads.length,
+    instagramAds: campaign.platforms.instagram.ads.length,
+    telegramAds: campaign.platforms.telegram.ads.length,
+  };
+
+  const platformActive = (
+    platformName: "facebook" | "instagram" | "telegram"
+  ) => {
+    const platform = campaign.platforms[platformName];
+    if (
+      campaign.status === "active" &&
+      campaign.isLimited &&
+      platform.limit !== null &&
+      platform.ads.length >= platform.limit
+    ) {
+      return false;
+    }
+
+    if (campaign.status === "active" && !campaign.isLimited) {
+      return true;
+    }
+
+    if (
+      campaign.status === "active" &&
+      campaign.isLimited &&
+      platform.limit !== null &&
+      platform.limit > 0
+    ) {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -120,7 +143,17 @@ export function CampaignCard({ campaign }: Props) {
                       إلغاء
                     </Button>
                     <Button
-                      onClick={() => handleDeleteCampaign()}
+                      onClick={() =>
+                        handleDelete<DeleteCampaignValues>({
+                          startTransition,
+                          setOpenDeleteModal,
+                          deleteAction: deleteCampaignAction,
+                          data: {
+                            id: campaign.id,
+                            clientId: campaign.clientId,
+                          },
+                        })
+                      }
                       variant="destructive"
                       disabled={isPending}
                     >
@@ -142,7 +175,8 @@ export function CampaignCard({ campaign }: Props) {
             platform="facebook"
             data={campaign.platforms.facebook}
             color="text-blue-400"
-            isActive={campaign.status === "active"}
+            isActive={platformActive("facebook")}
+            isLimited={campaign.isLimited}
           />
           <PlatformSection
             campaignId={campaign.id}
@@ -150,7 +184,8 @@ export function CampaignCard({ campaign }: Props) {
             platform="instagram"
             data={campaign.platforms.instagram}
             color="text-pink-400"
-            isActive={campaign.status === "active"}
+            isActive={platformActive("instagram")}
+            isLimited={campaign.isLimited}
           />
           <PlatformSection
             campaignId={campaign.id}
@@ -158,7 +193,8 @@ export function CampaignCard({ campaign }: Props) {
             platform="telegram"
             data={campaign.platforms.telegram}
             color="text-cyan-400"
-            isActive={campaign.status === "active"}
+            isActive={platformActive("telegram")}
+            isLimited={campaign.isLimited}
           />
         </div>
       </CardContent>
