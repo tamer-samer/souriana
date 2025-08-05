@@ -100,9 +100,9 @@ export function TransactionsCard({
                   <TableRow
                     style={{ direction: "ltr" }}
                     key={user.name}
-                    className="border-accent hover:bg-accent/30"
+                    className="border-accent hover:bg-accent/30 py-2"
                   >
-                    <TableCell className="text-slate-300">
+                    <TableCell className="text-slate-300 p-4">
                       {user.name}
                     </TableCell>
 
@@ -110,7 +110,7 @@ export function TransactionsCard({
                       <span className="relative">
                         {user.income.toLocaleString()}
                         {user.incomeCounts > 0 && (
-                          <div className="text-xs border border-primary rounded-md w-4 h-4 inline-block ml-2 absolute -right-4 -top-1.5 z-2 text-primary">
+                          <div className="text-xs border border-primary rounded-md w-4 h-4 inline-block ml-2 absolute -right-2 -top-2.5 z-2 text-primary">
                             {user.incomeCounts}
                           </div>
                         )}
@@ -121,7 +121,7 @@ export function TransactionsCard({
                       <span className="relative">
                         {user.expense.toLocaleString()}
                         {user.expenseCounts > 0 && (
-                          <div className="text-xs border border-rose-400 rounded-md w-4 h-4 inline-block ml-2 absolute -right-4 -top-1.5 z-2 text-rose-400">
+                          <div className="text-xs border border-rose-400 rounded-md w-4 h-4 inline-block ml-2 absolute -right-2 -top-2.5 z-2 text-rose-400">
                             {user.expenseCounts}
                           </div>
                         )}

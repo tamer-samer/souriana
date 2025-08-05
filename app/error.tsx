@@ -169,7 +169,7 @@ export default function Error({ error }: ErrorPageProps) {
               {glitchText}
             </h1>
             {/* Glitch overlay effect */}
-            <div className="absolute inset-0 text-8xl md:text-9xl font-bold text-red-400 opacity-20 animate-pulse font-mono tracking-wider">
+            <div className="absolute inset-0 text-2xl md:text-7xl font-bold text-red-400 opacity-20 animate-pulse font-mono tracking-wider">
               {type.toUpperCase()}
             </div>
           </div>
