@@ -54,7 +54,7 @@ export function TransactionsActions({ transaction, users, clients }: Props) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="bg-slate-800 border-slate-700"
+        className="bg-slate-800 border-slate-700 flex flex-col"
         align="start"
         style={{ direction: "rtl" }}
       >
@@ -98,7 +98,7 @@ export function TransactionsActions({ transaction, users, clients }: Props) {
               disabled={isPending}
               className="text-red-400 hover:bg-red-500/20"
             >
-              <Trash2 className="h-4 w-4 text-red-400 mr-2" />
+              <Trash2 className="h-4 w-4 text-red-400 mr-2 hover:bg-red-500/20" />
               حذف
             </DropdownMenuItem>
           }

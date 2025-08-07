@@ -165,13 +165,9 @@ export default function Error({ error }: ErrorPageProps) {
         {/* Error Code with Glitch Effect */}
         <div className="mb-8">
           <div className="relative inline-block">
-            <h1 className="text-8xl md:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-400 mb-4 font-mono tracking-wider">
+            <h1 className="text-2xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-400 mb-4 font-mono tracking-wider">
               {glitchText}
             </h1>
-            {/* Glitch overlay effect */}
-            <div className="absolute inset-0 text-2xl md:text-7xl font-bold text-red-400 opacity-20 animate-pulse font-mono tracking-wider">
-              {type.toUpperCase()}
-            </div>
           </div>
         </div>
 

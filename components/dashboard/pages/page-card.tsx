@@ -5,7 +5,6 @@ import { useState, useTransition } from "react";
 import { Edit, Plus, Trash2 } from "lucide-react";
 import { FiFacebook, FiInstagram } from "react-icons/fi";
 import { LiaTelegram } from "react-icons/lia";
-import { toast } from "sonner";
 
 import { deletePageAction } from "@/actions/page/delete-page";
 import { updatePageAction } from "@/actions/page/update-page";
@@ -21,7 +20,6 @@ import { DeletePageValues, TrackedProfileSelect } from "@/types";
 import { handleDelete } from "@/lib/utils";
 import { StatsForm } from "@/components/forms";
 import { createStatsAction } from "@/actions/stats/create-stat";
-import { AddButton } from "@/components/common";
 
 type Props = {
   page: TrackedProfileSelect;

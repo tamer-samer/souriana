@@ -44,7 +44,6 @@ const main = async () => {
         role: "partner",
       },
     ]);
-
     // await db.insert(schema.clients).values([
     //   {
     //     id: 1,

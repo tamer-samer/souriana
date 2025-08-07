@@ -1,10 +1,9 @@
 import { notFound } from "next/navigation";
 import db from "./drizzle";
-import { campaigns, clients, trackedProfiles, transactions } from "./schema";
+import { clients, trackedProfiles } from "./schema";
 import { eq, isNull } from "drizzle-orm";
 import { FOLLOWERS } from "@/constants";
 import { auth, currentUser } from "@clerk/nextjs/server";
-// import { isAdmin, requireAuth } from "@/lib/auth";
 
 export const isAdmin = async () => {
   const user = await currentUser();
@@ -372,6 +371,3 @@ export async function getPageWithStatsById(id: number) {
 
   return pageData;
 }
-
-// data returned from backend
-// Form Reflaction
