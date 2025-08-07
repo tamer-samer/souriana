@@ -29,7 +29,7 @@ type Props = {
 
 export function StatsComparison({ pages, platformName }: Props) {
   return (
-    <Card className="bg-secondary/50 border-accent w-full max-w-[550px] mx-auto ">
+    <Card className="bg-secondary/50 border-accent w-full max-w-[550px] mx-auto py-5 gap-1">
       <CardHeader>
         <CardTitle className="text-white text-center">
           {platformName.toUpperCase()}
@@ -57,7 +57,7 @@ export function StatsComparison({ pages, platformName }: Props) {
                       className={
                         Math.max(...pages.map((page) => page.trend)) ===
                         page.trend
-                          ? "text-primary"
+                          ? "text-green-500"
                           : ""
                       }
                     >

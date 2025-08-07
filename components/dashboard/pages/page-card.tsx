@@ -49,7 +49,7 @@ export function PageCard({ page }: Props) {
   return (
     <Card
       key={page.id}
-      className="bg-secondary/50 border-accent group hover:bg-secondary/70 transition-colors w-full lg:max-w-[350px] md:max-w-[300px] max-w-[550px] mx-auto"
+      className="bg-secondary/50 border-accent group hover:bg-secondary/70 transition-colors w-full lg:max-w-[360px] md:max-w-[300px] max-w-[550px] mx-auto"
     >
       <CardHeader className="pb-3 flex justify-between items-center">
         <Link

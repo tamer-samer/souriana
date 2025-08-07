@@ -27,7 +27,7 @@ export default async function SatasPage() {
       )}
 
       {pages.length > 0 && (
-        <div className="flex flex-wrap justify-center items-center gap-4">
+        <div className="flex flex-wrap justify-center items-center gap-4 mt-10">
           {platforms.map((platform, i) => {
             const pagesStats = pages.map((page) => {
               const currentStat = page.followers[platform];
