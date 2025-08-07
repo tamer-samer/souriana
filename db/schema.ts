@@ -116,9 +116,9 @@ export const transactionsArchive = pgTable("transactions_archive", {
     .notNull()
     .references(() => users.clerkId),
 
-  totalIncome: numeric("total_income", { precision: 12, scale: 2 }).notNull(),
-  totalExpense: numeric("total_expense", { precision: 12, scale: 2 }).notNull(),
-  netProfit: numeric("net_profit", { precision: 12, scale: 2 }).notNull(),
+  totalIncome: text("total_income").notNull(),
+  totalExpense: text("total_expense").notNull(),
+  netProfit: text("net_profit").notNull(),
 });
 
 export const trackedProfiles = pgTable("tracked_profiles", {

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useTransition } from "react";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Plus, Trash2 } from "lucide-react";
 import { FiFacebook, FiInstagram } from "react-icons/fi";
 import { LiaTelegram } from "react-icons/lia";
 import { toast } from "sonner";
@@ -19,6 +19,9 @@ import Spinner from "@/components/ui/Spinner";
 
 import { DeletePageValues, TrackedProfileSelect } from "@/types";
 import { handleDelete } from "@/lib/utils";
+import { StatsForm } from "@/components/forms";
+import { createStatsAction } from "@/actions/stats/create-stat";
+import { AddButton } from "@/components/common";
 
 type Props = {
   page: TrackedProfileSelect;
@@ -34,13 +37,19 @@ export function PageCard({ page }: Props) {
 
   const [isPending, startTransition] = useTransition();
 
+  const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
+  const activePlatforms = {
+    hasFacebook: !!page.facebookUrl,
+    hasInstagram: !!page.instagramUrl,
+    hasTelegram: !!page.telegramUrl,
+  };
   return (
     <Card
       key={page.id}
-      className="bg-secondary/50 border-accent group hover:bg-secondary/70 transition-colors"
+      className="bg-secondary/50 border-accent group hover:bg-secondary/70 transition-colors w-full lg:max-w-[350px] md:max-w-[300px] max-w-[550px] mx-auto"
     >
       <CardHeader className="pb-3 flex justify-between items-center">
         <Link
@@ -59,7 +68,9 @@ export function PageCard({ page }: Props) {
                 .join("")}
             </AvatarFallback>
           </Avatar>
-          <CardTitle className="text-white text-lg">{page.name}</CardTitle>
+          <CardTitle className="text-white text-sm lg:text-lg">
+            {page.name}
+          </CardTitle>
         </Link>
         <div className="opacity-100 group-hover:opacity-100 transition-opacity flex space-x-0.5">
           {/* Update Modal */}
@@ -126,6 +137,30 @@ export function PageCard({ page }: Props) {
                 {isPending ? <Spinner /> : "حذف"}
               </Button>
             </div>
+          </Modal>
+
+          {/* Add Modal */}
+          <Modal
+            trigger={
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled={isPending}
+                className="h-8 w-8"
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            }
+            open={openCreateModal}
+            setOpen={setOpenCreateModal}
+          >
+            <StatsForm
+              buttonLabel="إضافة"
+              pageId={page.id}
+              setOpenModal={setOpenCreateModal}
+              activePlatforms={activePlatforms}
+              onSubmit={createStatsAction}
+            />
           </Modal>
         </div>
       </CardHeader>

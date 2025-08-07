@@ -1,25 +1,17 @@
 "use client";
 
-import { createStatsAction } from "@/actions/stats/create-stat";
-import { PageTitle, AddButton } from "@/components/common";
-import { StatsForm } from "@/components/forms/stats-form";
+import { PageTitle } from "@/components/common";
 import { Button } from "@/components/ui/button";
-import { Modal } from "@/components/ui/modal";
 import { ActivePlatforms } from "@/types";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 type Props = {
   imageUrl: string | null;
   name: string;
-  pageId: number;
-  activePlatforms: ActivePlatforms;
 };
-export function PageHeader({ imageUrl, name, pageId, activePlatforms }: Props) {
-  const [openCreateModal, setOpenCreateModal] = useState(false);
-
+export function PageHeader({ imageUrl, name }: Props) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-4">
@@ -44,20 +36,6 @@ export function PageHeader({ imageUrl, name, pageId, activePlatforms }: Props) {
           </div>
         </div>
       </div>
-
-      <Modal
-        trigger={<AddButton title="إحصائية" />}
-        open={openCreateModal}
-        setOpen={setOpenCreateModal}
-      >
-        <StatsForm
-          buttonLabel="إضافة"
-          pageId={pageId}
-          setOpenModal={setOpenCreateModal}
-          activePlatforms={activePlatforms}
-          onSubmit={createStatsAction}
-        />
-      </Modal>
     </div>
   );
 }

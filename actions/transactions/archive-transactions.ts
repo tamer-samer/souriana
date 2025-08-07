@@ -31,7 +31,7 @@ export async function archiveTransactions(values: TValues) {
         archivedByUserId: userId,
         totalIncome: values.totalIncome,
         totalExpense: values.totalExpense,
-        netProfit: values.totalIncome,
+        netProfit: values.netProfit,
       })
       .returning();
 

@@ -14,30 +14,34 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { Social, TrackedProfileSelect } from "@/types";
+import { Platform, Social, TrackedProfileSelect } from "@/types";
 
 type Props = {
-  pages: (TrackedProfileSelect & {
-    trends: Social;
-    followers: Social;
-    recordDate: Date;
-  })[];
+  pages: {
+    id: number;
+    name: string;
+    currentStat: number | null;
+    trend: number;
+    currentDate: Date;
+  }[];
+  platformName: Platform;
 };
 
-export function StatsComparison({ pages }: Props) {
+export function StatsComparison({ pages, platformName }: Props) {
   return (
-    <Card className="bg-secondary/50 border-accent">
+    <Card className="bg-secondary/50 border-accent w-full max-w-[550px] mx-auto ">
       <CardHeader>
-        <CardTitle className="text-white"></CardTitle>
+        <CardTitle className="text-white text-center">
+          {platformName.toUpperCase()}
+        </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
         <Table>
           <TableHeader>
             <TableRow className="border-accent hover:bg-accent/50">
               <TableHead className="text-slate-300">الصفحة</TableHead>
-              <TableHead className="text-slate-300">فيسبوك</TableHead>
-              <TableHead className="text-slate-300">تلغرام</TableHead>
-              <TableHead className="text-slate-300">انستغرام</TableHead>
+              <TableHead className="text-slate-300">المتابعين</TableHead>
+              <TableHead className="text-slate-300">الفرق</TableHead>
               <TableHead className="text-slate-300">التاريخ</TableHead>
             </TableRow>
           </TableHeader>
@@ -48,95 +52,25 @@ export function StatsComparison({ pages }: Props) {
                 className="border-accent hover:bg-accent/30"
               >
                 <TableCell>
-                  <div className="font-medium relative">
-                    <span className="relative">
+                  <div className="font-medium text-xs md:text-sm">
+                    <span
+                      className={
+                        Math.max(...pages.map((page) => page.trend)) ===
+                        page.trend
+                          ? "text-primary"
+                          : ""
+                      }
+                    >
                       {page.name}
-
-                      <div className="flex items-center gap-1 justify-center absolute top-[100%] right-0">
-                        {page.facebookUrl &&
-                          page.trends.facebook != 0 &&
-                          page.trends.facebook ===
-                            Math.max(
-                              ...pages.map((page) => page.trends.facebook)
-                            ) && (
-                            <span className="bg-blue-500/20 rounded p-0.5">
-                              <FiFacebook className="h-3 w-3 text-blue-400" />
-                            </span>
-                          )}
-                        {page.telegramUrl &&
-                          page.trends.telegram != 0 &&
-                          page.trends.telegram ===
-                            Math.max(
-                              ...pages.map((page) => page.trends.telegram)
-                            ) && (
-                            <span className="bg-cyan-500/20 rounded p-0.5">
-                              <LiaTelegram className="h-3 w-3 text-cyan-400" />
-                            </span>
-                          )}
-                        {page.instagramUrl &&
-                          page.trends.instagram != 0 &&
-                          page.trends.instagram ===
-                            Math.max(
-                              ...pages.map((page) => page.trends.instagram)
-                            ) && (
-                            <span className="bg-pink-500/20 rounded p-0.5">
-                              <FiInstagram className="h-3 w-3 text-pink-400" />
-                            </span>
-                          )}
-                      </div>
                     </span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  {page.facebookUrl ? (
+                  {page.currentStat ? (
                     <div className="flex flex-col items-center justify-center gap-2">
                       <span className="text-white">
-                        {page.followers.facebook.toLocaleString()}
+                        {page.currentStat.toLocaleString()}
                       </span>
-                      <Badge
-                        variant={
-                          page.trends.facebook >= 0 ? "default" : "destructive"
-                        }
-                      >
-                        {Math.abs(page.trends.facebook).toLocaleString()}
-                      </Badge>
-                    </div>
-                  ) : (
-                    "-"
-                  )}
-                </TableCell>
-                <TableCell>
-                  {page.telegramUrl ? (
-                    <div className="flex flex-col items-center justify-center gap-2">
-                      <span className="text-white">
-                        {page.followers.telegram.toLocaleString()}
-                      </span>
-                      <Badge
-                        variant={
-                          page.trends.telegram >= 0 ? "default" : "destructive"
-                        }
-                      >
-                        {Math.abs(page.trends.telegram).toLocaleString()}
-                      </Badge>
-                    </div>
-                  ) : (
-                    "-"
-                  )}
-                </TableCell>
-                <TableCell>
-                  {page.instagramUrl ? (
-                    <div className="flex flex-col items-center justify-center gap-2">
-                      <span className="text-white">
-                        {page.followers.instagram.toLocaleString()}
-                      </span>
-
-                      <Badge
-                        variant={
-                          page.trends.instagram >= 0 ? "default" : "destructive"
-                        }
-                      >
-                        {Math.abs(page.trends.instagram).toLocaleString()}
-                      </Badge>
                     </div>
                   ) : (
                     "-"
@@ -144,9 +78,29 @@ export function StatsComparison({ pages }: Props) {
                 </TableCell>
 
                 <TableCell>
-                  <div className="flex flex-col items-center justify-center gap-2">
-                    {page.recordDate
-                      ? format(page.recordDate, "dd/MM/yyyy")
+                  {page.trend ? (
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <span
+                        className={
+                          page.trend > 0
+                            ? "text-green-500"
+                            : page.trend < 0
+                            ? "text-red-500"
+                            : "text-white"
+                        }
+                      >
+                        {page.trend.toLocaleString()}
+                      </span>
+                    </div>
+                  ) : (
+                    "-"
+                  )}
+                </TableCell>
+
+                <TableCell>
+                  <div className="flex flex-col items-center justify-center gap-2 text-xs md:text-sm">
+                    {page.currentDate
+                      ? format(page.currentDate, "dd/MM/yyyy")
                       : "-"}
                   </div>
                 </TableCell>

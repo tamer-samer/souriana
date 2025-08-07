@@ -25,12 +25,7 @@ export default async function ProfilePage({ params }: Params) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <PageHeader
-        name={page.name}
-        imageUrl={page.imageUrl}
-        pageId={pageId}
-        activePlatforms={activePlatforms}
-      />
+      <PageHeader name={page.name} imageUrl={page.imageUrl} />
 
       {page.followerRecords.length === 0 ? (
         <Card className="text-center px-2">لا يوجد إحصائيات</Card>
